@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoodMate</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <div id="mood-screen" class="screen active">
+            <h2>How are you feeling today?</h2>
+            <div class="mood-buttons">
+                <button data-mood="happy" class="mood-button">😊Happy</button>
+                <button data-mood="sad" class="mood-button">😢Sad</button>
+                <button data-mood="angry" class="mood-button">😠Angry</button>
+                <button data-mood="bored" class="mood-button">😒Bored</button>
+                <button data-mood="stressed"class="mood-button" >😩Stressed</button>
+                <button data-mood="tired"  class="mood-button">😴Tired</button>
+                <button data-mood="anxious"  class="mood-button">😰Anxious</button>
+            </div>
+        </div>
+
+        <!-- Activity selection screen (initially hidden) shown after mood selection screen-->
+        <div id="activity-screen" class="screen">
+            <h2>What would you like to do?</h2>
+            <div class="activity-options">
+                <!-- Activity buttons will go here -->
+                <button class="activity-btn" data-activity="joke">🎭 Joke</button>
+                <button class="activity-btn" data-activity="fact">🤓 Fun Fact</button>
+                <button class="activity-btn" data-activity="game">🎮 Mini Game</button>
+                <button class="activity-btn" data-activity="quote">💬 Quote</button>
+            </div>
+            <br>
+            <button id="back-to-mood" class="back-btn">← Back</button>
+        </div>
+
+        <!-- Content screen (initially hidden) shown after activity selection screen-->
+        <div id="content-screen" class="screen">
+            <div id="content-display">
+                <!-- Dynamic content will be displayed here -->
+            </div>
+            <button id="back-to-activity" class="back-btn">← Back</button>
+            <button id="new-content" class="action-btn">New</button>
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>

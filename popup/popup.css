@@ -1,0 +1,91 @@
+body {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background: linear-gradient(to bottom, #f0f4f8, #d9e2ec);
+    color: #333;
+    margin: 0;
+    padding: 10px;
+}
+
+h2 {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+    margin-bottom: 25px;
+    color: #64170a;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.container {
+    width: 300px;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: rgb(228, 188, 188);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+}
+
+.mood-buttons, .activity-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.mood-button, .activity-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #cf9d9d;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: transform 0.1s ease, background-color 0.3s ease;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+}
+.mood-button:hover, .activity-btn:hover {
+    background-color: #de5466;
+    transform: scale(1.05);
+}
+
+.back-btn, .action-btn{
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #9b3a4c;
+    color: white;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: transform 0.1s ease, background-color 0.3s ease;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+}
+
+
+.back-btn:hover, .action-btn:hover{
+    background-color: #e24a4a;
+    color: white;
+}
+
+.back-btn:active, .action-btn:active {
+    background-color: #d53a3a;
+    transform: scale(0.95);
+    transform: translateY(1px);
+    box-shadow: 0 2px 3px rgba(82, 113, 255, 0.2);
+}
+
+.mood-button:active, .activity-btn:active {
+    background-color: #c0e0ff;
+    transform: scale(0.95);
+    transform: translateY(1px);
+    box-shadow: 0 2px 3px rgba(82, 113, 255, 0.2);
+}
+
+.mood-button::first-letter {
+    font-size: 17px;
+    margin-right: 8px;
+}
