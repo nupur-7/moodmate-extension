@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const response=await fetch("https://api.api-ninjas.com/v1/facts",{
                     headers:{
                         "Accept":"application/json",
-                        "X-Api-Key":Api_Ninja_key
+                        "X-Api-Key":API_NINJA_KEY
                     }
                 });
                 const factdata=await response.json();
