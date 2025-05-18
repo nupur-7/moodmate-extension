@@ -55,9 +55,51 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    function displayContent() {
-    const message = `You selected: <strong>${selectedMood}</strong> and <strong>${selectedActivity}</strong>`;
-    contentDisplay.innerHTML = `<p>${message}</p>`;
-    }
+    async function displayContent() {
+        const message = `You selected: <strong>${selectedMood}</strong> and <strong>${selectedActivity}</strong>`;
+        contentDisplay.innerHTML = `<p>${message}</p>`;
 
+        if(selectedActivity=="joke")
+        {
+            //fetch a random joke from the API
+            try{
+                // https://icanhazdadjoke.com/ this api can also be used 
+                const response=await fetch("https://official-joke-api.appspot.com/random_joke",{
+                    headers:{
+                        "Accept":"application/json"
+                    }
+                });
+                const joke=await response.json();
+                const jokesetup=joke.setup;
+                const jokePunchline=joke.punchline;
+                contentDisplay.innerHTML += `<p>${jokesetup}</p>`;
+                contentDisplay.innerHTML += `<p>${jokePunchline}</p>`;
+                // contentDisplay.innerHTML += `<p>${joke}</p>`; for icanhazdadjoke. api
+            }
+            catch(error){
+                console.error("Error fetching joke:", error);
+                contentDisplay.innerHTML += `<p>Oops! Couldn't fetch a joke right now.</p>`;
+            }
+        }
+
+        if(selectedActivity=="fact"){
+            //fetch a random fact from the API
+            try{
+                const response=await fetch("https://api.api-ninjas.com/v1/facts",{
+                    headers:{
+                        "Accept":"application/json",
+                        "X-Api-Key":Api_Ninja_key
+                    }
+                });
+                const factdata=await response.json();
+                const factText=factdata[0].fact;
+                contentDisplay.innerHTML += `<p>Did you know?</p>`;
+                contentDisplay.innerHTML += `<p>${factText}</p>`;
+            }
+            catch(error){
+                console.error("Error fetching fact:", error);
+                contentDisplay.innerHTML += `<p>Oops! Couldn't fetch a fact right now.</p>`;
+            }
+        }
+    }
 });
