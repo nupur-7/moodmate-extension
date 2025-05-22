@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Speed Test</title>
+  <style>
+    * {
+      margin: 0.5px;
+      padding: 0;
+      box-sizing: border-box;
+      font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+    body{
+        padding: 10px;
+        display: flex;
+        margin: 0;
+        background-color:rgb(228, 188, 188);
+    }
+    .container {
+      width: 340px;
+      height: 310px;
+      padding: 20px;
+      margin: 2px;
+      background-color:rgb(236, 213, 213);
+      border-radius: 20px;
+      box-shadow:0 4px 15px rgba(124, 82, 82, 0.2);
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #5c3737;
+    }
+    
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: #5c3737;
+    }
+    
+    .quote-display {
+      background-color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      height: 100px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      border: 1px solid #e6c7c7;
+      line-height: 1.4;
+      color: #442a2a;
+    }
+    
+    .quote-input {
+      font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      width: 100%;
+      height: 60px;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #e6c7c7;
+      outline: none;
+      font-size: 14px;
+      resize: none;
+      color: #442a2a;
+    }
+    
+    .quote-input:focus {
+      border-color: #9e5e5e;
+    }
+    
+    .timer {
+      font-size: 16px;
+      font-weight: bold;
+      color: #9e5e5e;
+    }
+    
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+    
+    button {
+      padding: 5px 10px;
+      background-color: #9e5e5e;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      outline: none;
+      transition: background-color 0.2s ease;
+    }
+    
+    button:hover {
+      background-color:  #7a4747;
+    }
+    
+    button:disabled {
+      background-color: #ccb3b3;
+      cursor: not-allowed;
+    }
+    
+    .correct {
+      color: #5e8d5e;
+    }
+    
+    .incorrect {
+      color: #9e5e5e;
+      text-decoration: underline;
+    }
+    
+    .current {
+      background-color:  #f2e6e6;
+      border-radius: 2px;
+    }
+    
+    .result-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(249, 235, 235, 0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      z-index: 10;
+      display: none;
+    }
+    
+    .result-content {
+      text-align: center;
+    }
+    
+    .result-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #9e5e5e;
+    }
+    
+    .result-stats {
+      margin-bottom: 20px;
+      color: #5c3737;
+    }
+    
+    .result-stats div {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">Typing Speed Test</div>
+    </div>
+    
+    <div class="stats">
+      <div class="time">Time: <span class="timer">60s</span></div>
+      <div class="wpm">WPM: <span id="wpm">0</span></div>
+      <div class="accuracy">Acc: <span id="accuracy">0%</span></div>
+    </div>
+    
+    <div class="quote-display" id="quoteDisplay"></div>
+    <textarea class="quote-input" id="quoteInput" placeholder="Start typing when ready..." autofocus></textarea>
+    
+    <div class="buttons">
+      <button id="newQuoteBtn">New Quote</button>
+      <button id="resetBtn">Reset</button>
+    </div>
+    
+    <div class="result-overlay" id="resultOverlay">
+      <div class="result-content">
+        <div class="result-title">Test Complete!</div>
+        <div class="result-stats">
+          <div>Words Per Minute: <span id="finalWpm">0</span></div>
+          <div>Accuracy: <span id="finalAccuracy">0%</span></div>
+          <div>Time Taken: <span id="timeTaken">0s</span></div>
+        </div>
+        <button id="tryAgainBtn">Try Again</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const quotes = [
+      "The quick brown fox jumps over the lazy dog.",
+      "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+      "Life is what happens when you're busy making other plans.",
+      "The way to get started is to quit talking and begin doing.",
+      "Your time is limited, so don't waste it living someone else's life.",
+      "If life were predictable it would cease to be life, and be without flavor.",
+      "In the end, it's not the years in your life that count. It's the life in your years.",
+      "Many of life's failures are people who did not realize how close they were to success when they gave up.",
+      "When you reach the end of your rope, tie a knot in it and hang on.",
+      "Tell me and I forget. Teach me and I remember. Involve me and I learn."
+    ];
+
+    const quoteDisplayElement = document.getElementById('quoteDisplay');
+    const quoteInputElement = document.getElementById('quoteInput');
+    const timerElement = document.querySelector('.timer');
+    const wpmElement = document.getElementById('wpm');
+    const accuracyElement = document.getElementById('accuracy');
+    const newQuoteBtn = document.getElementById('newQuoteBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const resultOverlay = document.getElementById('resultOverlay');
+    const finalWpmElement = document.getElementById('finalWpm');
+    const finalAccuracyElement = document.getElementById('finalAccuracy');
+    const timeTakenElement = document.getElementById('timeTaken');
+    const tryAgainBtn = document.getElementById('tryAgainBtn');
+
+    let timer = null;
+    let timeLeft = 60;
+    let isTimerRunning = false;
+    let startTime;
+    let correctChars = 0;
+    let totalChars = 0;
+    let currentQuote = '';
+
+    //Initialize the game
+    renderNewQuote();
+
+    function renderNewQuote() {
+      currentQuote = quotes[Math.floor(Math.random() * quotes.length)];
+      quoteDisplayElement.innerHTML = '';
+      
+      //Create a span for each character in the quote
+      currentQuote.split('').forEach(char => {
+        const charSpan = document.createElement('span');
+        charSpan.innerText = char;
+        quoteDisplayElement.appendChild(charSpan);
+      });
+      
+      quoteInputElement.value = '';
+      resetTimer();
+      resetStats();
+    }
+
+    function startTimer() {
+      if (!isTimerRunning) {
+        isTimerRunning = true;
+        startTime = new Date();
+        timer = setInterval(() => {
+          timeLeft--;
+          timerElement.innerText = timeLeft + 's';
+          
+          if (timeLeft <= 0) {
+            endTest();
+          }
+        }, 1000);
+      }
+    }
+
+    function resetTimer() {
+      clearInterval(timer);
+      isTimerRunning = false;
+      timeLeft = 60;
+      timerElement.innerText = timeLeft + 's';
+    }
+
+    function resetStats() {
+      correctChars = 0;
+      totalChars = 0;
+      wpmElement.innerText = '0';
+      accuracyElement.innerText = '0%';
+    }
+
+    function calculateWPM() {
+      if (!startTime) return 0;
+      
+      const timeElapsed = (new Date() - startTime) / 1000 / 60; //in minutes
+      const words = correctChars / 5; //average word length is 5 characters
+      return Math.round(words / timeElapsed);
+    }
+
+    function calculateAccuracy() {
+      if (totalChars === 0) return 0;
+      return Math.round((correctChars / totalChars) * 100);
+    }
+
+    function endTest() {
+      clearInterval(timer);
+      isTimerRunning = false;
+      quoteInputElement.disabled = true;
+      
+      const finalWpm = calculateWPM();
+      const finalAccuracy = calculateAccuracy();
+      const timeTaken = Math.round((new Date() - startTime) / 1000);
+      
+      // Display results
+      finalWpmElement.innerText = finalWpm;
+      finalAccuracyElement.innerText = finalAccuracy + '%';
+      timeTakenElement.innerText = timeTaken + 's';
+      
+      resultOverlay.style.display = 'flex';
+    }
+
+    quoteInputElement.addEventListener('input', () => {
+      if (!isTimerRunning && quoteInputElement.value.length > 0) {
+        startTimer();
+      }
+      
+      const arrayQuote = quoteDisplayElement.querySelectorAll('span');
+      const arrayValue = quoteInputElement.value.split('');
+      
+      let correct = true;
+      totalChars = arrayValue.length;
+      correctChars = 0;
+      
+      arrayQuote.forEach((charSpan, index) => {
+        const character = arrayValue[index];
+        
+        charSpan.classList.remove('correct', 'incorrect', 'current');
+        
+        if (character == null) {
+          correct = false;
+          charSpan.classList.remove('correct', 'incorrect');
+          if (index === arrayValue.length) {
+            charSpan.classList.add('current');
+          }
+        } else if (character === charSpan.innerText) {
+          charSpan.classList.add('correct');
+          correctChars++;
+        } else {
+          charSpan.classList.add('incorrect');
+          correct = false;
+        }
+      });
+      
+      wpmElement.innerText = calculateWPM();
+      accuracyElement.innerText = calculateAccuracy() + '%';
+      
+      if (arrayValue.length === arrayQuote.length && correct) {
+        endTest();
+      }
+    });
+
+    newQuoteBtn.addEventListener('click', renderNewQuote);
+    
+    resetBtn.addEventListener('click', () => {
+      renderNewQuote();
+      quoteInputElement.disabled = false;
+    });
+    
+    tryAgainBtn.addEventListener('click', () => {
+      resultOverlay.style.display = 'none';
+      renderNewQuote();
+      quoteInputElement.disabled = false;
+      quoteInputElement.focus();
+    });
+  </script>
+</body>
+</html>

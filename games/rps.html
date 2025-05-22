@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rock Paper Scissors</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: rgb(228, 188, 188);
+    display: flex;
+    margin: 0;
+    padding: 10px;
+  }
+  .container {
+    width: 310px;
+    height: 300px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color:#c9a7a7;
+    box-shadow: 0 10px 20px rgba(139, 89, 89, 0.25);
+    text-align: center;
+    user-select: none;
+    border: 2px solid #a17878
+     /* border: 1px solid rgb(194, 72, 72); */
+  }
+  .header {
+    background-color:  linear-gradient(135deg, #a17878, #855858); /* Gradient header */
+    padding: 12px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(139, 89, 89, 0.2);
+    margin-bottom: 16px;
+    }
+  .header h1 {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+    color: #fff; 
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  .scoreboard {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display: flex;
+    justify-content: space-around;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    color: #6b4242;
+  }
+  .choices-display {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    color: #6b4242;
+  }
+  .choice {
+    flex-basis: 70%;
+    font-weight: 600;
+  }
+  .icon {
+    font-size: 26px;
+    margin-top: 3px;
+    color: #6b4242;
+  }
+  .vs {
+    font-weight: 700;
+    font-size: 1.1rem;
+    align-self: center;
+    color: #6b4242;
+  }
+  #result-message {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin: 14px 0 16px;
+    min-height: 28px;
+    color: #6b4242;
+  }
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  button {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    flex: 1;
+    background: linear-gradient(135deg, #a17878, #855858);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 10px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover:not(:disabled) {
+    background: linear-gradient(135deg, #855858, #a17878); 
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(139, 89, 89, 0.3);
+  }
+  button:disabled {
+    background: #b19393;
+    cursor: default;
+  }
+  #reset-btn {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background: linear-gradient(135deg, #724c4c, #5c3a3a); 
+    width: 100%;
+    padding: 10px 0;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  #reset-btn:hover {
+    background: linear-gradient(135deg, #5c3a3a, #724c4c);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(139, 89, 89, 0.3);
+  }
+  .footer-text {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color:  #c0c0c0;
+    user-select: none;
+  }
+</style>
+</head>
+<body>
+  <div class="container" role="main" aria-label="Rock Paper Scissors Game">
+    <div class="header" aria-label="Game Title">
+      <h1>Rock Paper Scissors </h1>
+    </div>
+
+    <div class="scoreboard" aria-live="polite">
+      <div id="user-score" aria-label="Your score">You: 0</div>
+      <div id="computer-score" aria-label="Computer score">Computer: 0</div>
+    </div>
+
+    <div class="choices-display" aria-live="polite" aria-atomic="true">
+      <div class="choice">
+        <div>Your Choice</div>
+        <div id="user-choice-icon" class="icon" aria-label="User's choice">❓</div>
+      </div>
+      <div class="vs">VS</div>
+      <div class="choice">
+        <div>Computer</div>
+        <div id="computer-choice-icon" class="icon" aria-label="Computer's choice">❓</div>
+      </div>
+    </div>
+
+    <div id="result-message" aria-live="assertive" aria-atomic="true">
+      Choose your weapon!
+    </div>
+
+    <div class="buttons" role="group" aria-label="Choose your weapon">
+      <button id="btn-rock" type="button" aria-label="Choose Rock">✊ Rock</button>
+      <button id="btn-paper" type="button" aria-label="Choose Paper">✋ Paper</button>
+      <button id="btn-scissors" type="button" aria-label="Choose Scissors">✌️ Scissors</button>
+    </div>
+
+    <button id="reset-btn" type="button" aria-label="Reset Game">Reset Game</button>
+
+    
+  </div>
+
+<script>
+  const choices = { rock: '✊', paper: '✋', scissors: '✌️' };
+
+  let userScore = 0;
+  let computerScore = 0;
+  let roundsPlayed = 0; // Add a counter for rounds played
+  const totalRounds = 3; // Set total rounds to 3 for "best of 3"
+
+  const userScoreEl = document.getElementById('user-score');
+  const computerScoreEl = document.getElementById('computer-score');
+  const userChoiceIcon = document.getElementById('user-choice-icon');
+  const computerChoiceIcon = document.getElementById('computer-choice-icon');
+  const resultMessage = document.getElementById('result-message');
+
+  const buttons = {
+    rock: document.getElementById('btn-rock'),
+    paper: document.getElementById('btn-paper'),
+    scissors: document.getElementById('btn-scissors'),
+  };
+  const resetBtn = document.getElementById('reset-btn');
+
+  function getComputerChoice() {
+    const keys = Object.keys(choices);
+    return keys[Math.floor(Math.random() * keys.length)];
+  }
+
+  function getResult(user, computer) {
+    if (user === computer) return 'draw';
+    if (
+      (user === 'rock' && computer === 'scissors') ||
+      (user === 'paper' && computer === 'rock') ||
+      (user === 'scissors' && computer === 'paper')
+    ) return 'win';
+    return 'lose';
+  }
+
+  function playRound(userChoice) {
+    const computerChoice = getComputerChoice();
+
+    userChoiceIcon.textContent = choices[userChoice];
+    computerChoiceIcon.textContent = choices[computerChoice];
+
+    const result = getResult(userChoice, computerChoice);
+     // Only increment round count for non-draw results
+  if (result !== 'draw') {
+    roundsPlayed++;
+  }
+
+    if (result === 'win') {
+      userScore++;
+      resultMessage.textContent = 'You Win! 🎉';
+      resultMessage.style.color = 'green';
+    } else if (result === 'lose') {
+      computerScore++;
+      resultMessage.textContent = 'You Lose! 😞';
+      resultMessage.style.color = 'red';
+    } else {
+      resultMessage.textContent = "It's a Draw! 🤝";
+      resultMessage.style.color = '#333';
+    }
+
+    userScoreEl.textContent = `You: ${userScore}`;
+    computerScoreEl.textContent = `Computer: ${computerScore}`;
+
+    checkChampion();
+  }
+
+  function checkChampion() {
+    const target = 2; // best of 3, first to 2 wins
+    if (userScore === target) {
+      resultMessage.textContent = '🎉 You are the champion! 🎉';
+      disableButtons(true);
+    } else if (computerScore === target) {
+      resultMessage.textContent = '😞 Computer is the champion!';
+      disableButtons(true);
+    }
+    
+  }
+
+  function disableButtons(disabled) {
+    Object.values(buttons).forEach(btn => btn.disabled = disabled);
+  }
+
+  Object.entries(buttons).forEach(([choice, btn]) => {
+    btn.addEventListener('click', () => playRound(choice));
+  });
+
+  resetBtn.addEventListener('click', () => {
+    userScore = 0;
+    computerScore = 0;
+    userChoiceIcon.textContent = '❓';
+    computerChoiceIcon.textContent = '❓';
+    resultMessage.textContent = 'Choose your weapon!';
+    resultMessage.style.color = '#333';
+    userScoreEl.textContent = 'You: 0';
+    computerScoreEl.textContent = 'Computer: 0';
+    disableButtons(false);
+  });
+</script>
+</body>
+</html>

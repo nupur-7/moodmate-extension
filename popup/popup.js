@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    let gameCounter = 1; // Start from Game 1
     let selectedMood = null;
     let selectedActivity = null;
 
@@ -13,13 +14,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const activityScreen = document.getElementById("activity-screen");
     const contentScreen = document.getElementById("content-screen");
     const contentDisplay = document.getElementById("content-display");
-
     function showScreen(screenToShow) {
         // Hide all screens
         [moodScreen, activityScreen, contentScreen].forEach(screen => screen.classList.remove("active"));
         screenToShow.classList.add("active");
     }
-
     // Step 1: Mood selection
     moodButtons.forEach(button => {
         button.addEventListener("click", () => {
@@ -27,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
             showScreen(activityScreen);
         });
     });
-
     // Step 2: Activity selection
     activityButtons.forEach(button => {
         button.addEventListener("click", () => {
@@ -43,6 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     backToActivityBtn.addEventListener("click", () => {
+        contentDisplay.innerHTML = "";
         showScreen(activityScreen);
     });
 
@@ -50,15 +49,12 @@ document.addEventListener("DOMContentLoaded", function () {
     newContentBtn.addEventListener("click", () => {
     selectedMood = null;
     selectedActivity = null;
-    contentDisplay.innerHTML = ""; // Optional: clear old message
-    showScreen(moodScreen); // Go back to first screen
+    contentDisplay.innerHTML = "";
+    showScreen(moodScreen); 
     });
-
-
     async function displayContent() {
-        const message = `You selected: <strong>${selectedMood}</strong> and <strong>${selectedActivity}</strong>`;
-        contentDisplay.innerHTML = `<p>${message}</p>`;
-
+        //const message = `You selected: <strong>${selectedMood}</strong> and <strong>${selectedActivity}</strong>`;
+        //contentDisplay.innerHTML = `<p>${message}</p>`;
         if(selectedActivity=="joke")
         {
             //fetch a random joke from the API
@@ -72,9 +68,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 const joke=await response.json();
                 const jokesetup=joke.setup;
                 const jokePunchline=joke.punchline;
-                contentDisplay.innerHTML += `<p>${jokesetup}</p>`;
-                contentDisplay.innerHTML += `<p>${jokePunchline}</p>`;
-                // contentDisplay.innerHTML += `<p>${joke}</p>`; for icanhazdadjoke. api
+                contentDisplay.innerHTML += `<p style="font-size: 1.5em; color: #64170a; font-weight: bold; text-align: center;">${jokesetup}</p>`;
+                contentDisplay.innerHTML += `<p style="font-size: 1.5em; color: #64170a; font-weight: bold; text-align: center;">${jokePunchline}</p>`;
+                contentDisplay.innerHTML += `<br> <p style="font-size: 1.1em; color: #64170a;text-align: center;">Hope it brightens your day!</p>`
             }
             catch(error){
                 console.error("Error fetching joke:", error);
@@ -93,15 +89,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
                 const factdata=await response.json();
                 const factText=factdata[0].fact;
-                contentDisplay.innerHTML += `<p>Did you know?</p>`;
-                contentDisplay.innerHTML += `<p>${factText}</p>`;
+                contentDisplay.innerHTML += `<p style="font-size: 1.2em; color: #64170a; font-weight: bold; text-align: center;">Did you know?</p>`;
+                contentDisplay.innerHTML += `<p style="font-size: 1.5em; color: #64170a; font-weight: bold; text-align: center;">${factText}</p>`;
+                contentDisplay.innerHTML += `<br> <p style="font-size: 1.1em; color: #64170a;text-align: center;">Have a great day!</p>`
             }
             catch(error){
                 console.error("Error fetching fact:", error);
                 contentDisplay.innerHTML += `<p>Oops! Couldn't fetch a fact right now.</p>`;
             }
         }
-
         const moodquotes={
             happy: [
                 "Happiness looks good on you — keep glowing!",
@@ -222,9 +218,43 @@ document.addEventListener("DOMContentLoaded", function () {
             const quotes = moodquotes[selectedMood];
             const randomIndex = Math.floor(Math.random() * quotes.length);
             const randomQuote = quotes[randomIndex];
+            contentDisplay.innerHTML += `<p style="font-size: 1em; color: #64170a;">Here's a quote for you:</p><br>`;
+            contentDisplay.innerHTML += `<p style="font-size: 1.5em; color: #64170a; font-weight: bold; text-align: center;">"${randomQuote}"</p>`;
+            contentDisplay.innerHTML += `<p style="font-size: 1.1em; color: #64170a;">Have a great day!</p>`;
+        }
+        // if (selectedActivity === "game") {
+        // document.getElementById("content-display").innerHTML = `
+        //     <iframe src="../games/emojimatch.html" width="372px" height="372px" frameborder="0"></iframe>`;
+        // }
+        const gameURLS={
+            rps:"../games/rps.html",
+            typing:"../games/typingTest.html",
+            tictactoe:"../games/tictactoe.html",
+            emojimatch:"../games/emojimatch.html",
+            snake:"../games/snakegame.html",
+        };
+        if (selectedActivity === "game") {
+            // const keys = Object.keys(gameURLS); // ['rps', 'typing']
+            // const randomKey = keys[Math.floor(Math.random() * keys.length)];
+            // const randomGame = gameURLS[randomKey];
 
-            contentDisplay.innerHTML += `<p>Here's a quote for you:</p>`;
-            contentDisplay.innerHTML += `<p>"${randomQuote}"</p>`;
+            // document.getElementById("content-display").innerHTML = `
+            // <iframe src="${randomGame}" width="372px" height="372px" frameborder="0"></iframe>`;
+            switch(gameCounter){
+                case 1 :document.getElementById("content-display").innerHTML = `<iframe src="../games/rps.html" width="372px" height="372px" frameborder="0"></iframe>`;
+                        break;
+                case 2 :document.getElementById("content-display").innerHTML = `<iframe src="../games/typingTest.html" width="372px" height="372px" frameborder="0"></iframe>`;
+                        break;
+                case 3 :document.getElementById("content-display").innerHTML = `<iframe src="../games/tictactoe.html" width="372px" height="372px" frameborder="0"></iframe>`;
+                        break;
+                case 4 :document.getElementById("content-display").innerHTML = `<iframe src="../games/emojimatch.html" width="372px" height="372px" frameborder="0"></iframe>`;
+                        break;
+                case 5 :document.getElementById("content-display").innerHTML = `<iframe src="../games/snakegame.html" width="372px" height="372px" frameborder="0"></iframe>`;
+                        break;
+                default:document.getElementById("content-display").innerHTML = `<iframe src="../games/rps.html" width="372px" height="372px" frameborder="0"></iframe>`;    
+                        break;
+            }
+            gameCounter= gameCounter==5?1:gameCounter+1;
         }
     }
 });

@@ -10,6 +10,7 @@
     <div class="container">
         <div id="mood-screen" class="screen active">
             <h2>How are you feeling today?</h2>
+            <br>
             <div class="mood-buttons">
                 <button data-mood="happy" class="mood-button">😊Happy</button>
                 <button data-mood="sad" class="mood-button">😢Sad</button>
@@ -24,8 +25,9 @@
         <!-- Activity selection screen (initially hidden) shown after mood selection screen-->
         <div id="activity-screen" class="screen">
             <h2>What would you like to do?</h2>
+            <br>
             <div class="activity-options">
-                <!-- Activity buttons will go here -->
+                
                 <button class="activity-btn" data-activity="joke">🎭 Joke</button>
                 <button class="activity-btn" data-activity="fact">🤓 Fun Fact</button>
                 <button class="activity-btn" data-activity="game">🎮 Mini Game</button>
@@ -38,10 +40,12 @@
         <!-- Content screen (initially hidden) shown after activity selection screen-->
         <div id="content-screen" class="screen">
             <div id="content-display">
-                <!-- Dynamic content will be displayed here -->
+                <!-- Dynamic content- jokes facts games quotes will be displayed here -->
             </div>
+            
             <button id="back-to-activity" class="back-btn">← Back</button>
             <button id="new-content" class="action-btn">New</button>
+            
         </div>
     </div>
     <script src="config.js"></script>

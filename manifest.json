@@ -1,5 +1,38 @@
 {
     "name" : "MoodMate",
     "version" : "1.0",
-    "manifest_version" : 3
+    "manifest_version" : 3,
+    "description" : "A Chrome extension that helps improve mood with  jokes, facts, games, and motivation.",
+    "action":{
+        "default_popup": "popup/popup.html",
+        "default_icon": {
+            "16": "images/icon16.png",
+            "48": "images/icon48.png",
+            "128": "images/icon128.png"
+        }
+    },
+    "icons": {
+        "16": "images/icon16.png",
+        "48": "images/icon48.png",
+        "128": "images/icon128.png"
+    },
+    "host_permissions": [
+    "https://official-joke-api.appspot.com/*",
+    "https://api.api-ninjas.com/*"
+    ],
+    "web_accessible_resources": [
+    {
+        "resources": [
+            "games/rps.html",
+            "games/typingTest.html",
+            "games/tictactoe.html",
+            "games/emojimatch.html",
+            "games/snakegame.html"
+        ],
+        "matches": ["<all_urls>"]
+    }
+    ],
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self';"
+    } 
 }
