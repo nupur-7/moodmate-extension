@@ -7,12 +7,14 @@
         "default_popup": "popup/popup.html",
         "default_icon": {
             "16": "images/icon16.png",
+            "32": "images/icon32.png",
             "48": "images/icon48.png",
             "128": "images/icon128.png"
         }
     },
     "icons": {
         "16": "images/icon16.png",
+        "32": "images/icon32.png",
         "48": "images/icon48.png",
         "128": "images/icon128.png"
     },
@@ -21,16 +23,26 @@
     "https://api.api-ninjas.com/*"
     ],
     "web_accessible_resources": [
-    {
-        "resources": [
-            "games/rps.html",
-            "games/typingTest.html",
-            "games/tictactoe.html",
-            "games/emojimatch.html",
-            "games/snakegame.html"
-        ],
-        "matches": ["<all_urls>"]
-    }
+        {
+            "resources": [
+                "games/rps.html",
+                "games/rps.js",
+                "games/typingTest.html",
+                "games/typingTest.js",
+                "games/tictactoe.html",
+                "games/tictactoe.js",
+                "games/emojimatch.html",
+                "games/emojimatch.js",
+                "games/snakegame.html",
+                "games/snakegame.js",
+                "games/wordguess.html",
+                "games/wordguess.js"
+                ],
+            "matches": ["<all_urls>"]
+        }
+    ],
+    "permissions": [
+    "activeTab"
     ],
     "content_security_policy": {
         "extension_pages": "script-src 'self'; object-src 'self';"

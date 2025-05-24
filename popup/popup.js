@@ -68,9 +68,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 const joke=await response.json();
                 const jokesetup=joke.setup;
                 const jokePunchline=joke.punchline;
-                contentDisplay.innerHTML += `<p style="font-size: 1.5em; color: #64170a; font-weight: bold; text-align: center;">${jokesetup}</p>`;
-                contentDisplay.innerHTML += `<p style="font-size: 1.5em; color: #64170a; font-weight: bold; text-align: center;">${jokePunchline}</p>`;
-                contentDisplay.innerHTML += `<br> <p style="font-size: 1.1em; color: #64170a;text-align: center;">Hope it brightens your day!</p>`
+                contentDisplay.innerHTML += `<p style="font-size: 1.5em; color: #64170a; font-weight: bold; text-align: center;margin-top: 40px;">${jokesetup}</p>`;
+                contentDisplay.innerHTML += `<p style="font-size: 1.5em; color: #64170a; font-weight: bold; text-align: center;margin: 30px 15px; line-height: 1.4;">${jokePunchline}</p>`;
+                contentDisplay.innerHTML += `<br> <p style="font-size: 1.1em; color: #64170a;text-align: center;margin-top: 10px;">Hope it brightens your day!</p>`
             }
             catch(error){
                 console.error("Error fetching joke:", error);
@@ -89,9 +89,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
                 const factdata=await response.json();
                 const factText=factdata[0].fact;
-                contentDisplay.innerHTML += `<p style="font-size: 1.2em; color: #64170a; font-weight: bold; text-align: center;">Did you know?</p>`;
-                contentDisplay.innerHTML += `<p style="font-size: 1.5em; color: #64170a; font-weight: bold; text-align: center;">${factText}</p>`;
-                contentDisplay.innerHTML += `<br> <p style="font-size: 1.1em; color: #64170a;text-align: center;">Have a great day!</p>`
+                contentDisplay.innerHTML += `<p style="font-size: 1.2em; color: #64170a; font-weight: bold; text-align: center;margin-top: 40px;">Did you know?</p>`;
+                contentDisplay.innerHTML += `<p style="font-size: 1.5em; color: #64170a; font-weight: bold; text-align: center;margin: 30px 15px; line-height: 1.4;">${factText}</p>`;
+                contentDisplay.innerHTML += `<br> <p style="font-size: 1.1em; color: #64170a;text-align: center;margin-top: 10px;">Have a great day!</p>`
             }
             catch(error){
                 console.error("Error fetching fact:", error);
@@ -218,9 +218,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const quotes = moodquotes[selectedMood];
             const randomIndex = Math.floor(Math.random() * quotes.length);
             const randomQuote = quotes[randomIndex];
-            contentDisplay.innerHTML += `<p style="font-size: 1em; color: #64170a;">Here's a quote for you:</p><br>`;
-            contentDisplay.innerHTML += `<p style="font-size: 1.5em; color: #64170a; font-weight: bold; text-align: center;">"${randomQuote}"</p>`;
-            contentDisplay.innerHTML += `<p style="font-size: 1.1em; color: #64170a;">Have a great day!</p>`;
+            contentDisplay.innerHTML += `<p style="font-size: 1.2em; color: #64170a; text-align: center;margin-top: 40px;">Here's a quote for you:</p><br>`;
+            contentDisplay.innerHTML += `<p style="font-size: 1.6em; color: #64170a; font-weight: bold; text-align: center;margin: 30px 15px; line-height: 1.4;">"${randomQuote}"</p>`;
+            contentDisplay.innerHTML += `<p style="font-size: 1.2em; color: #64170a;text-align: center;margin-top: 10px;">Have a great day!</p>`;
         }
         // if (selectedActivity === "game") {
         // document.getElementById("content-display").innerHTML = `
