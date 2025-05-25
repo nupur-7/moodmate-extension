@@ -1,6 +1,6 @@
 # MoodMate - Chrome Extension 🌟
 
-MoodMate is aninteractive Chrome extension designed to uplift your mood! Whether you're feeling low, bored, or just looking for a quick break, MoodMate is here to help. Choose your mood, select an activity, and get instant access to jokes, fun facts, motivational quotes, and games.
+MoodMate is an interactive Chrome extension designed to uplift your mood! Whether you're feeling low, bored, or just looking for a quick break, MoodMate is here to help. Choose your mood, select an activity, and get instant access to jokes, fun facts, motivational quotes, and games.
 
 ## What MoodMate Offers
 
